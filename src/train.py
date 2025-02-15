@@ -1,6 +1,5 @@
 """
 author : @shubhamvashishth
-
 """
 
 """
@@ -10,6 +9,7 @@ and then runs the training loop with validation. Metrics are logged to TensorBoa
 checkpoint is automatically saved.
 """
 
+import os
 import torch
 import pytorch_lightning as pl
 from torch import nn
@@ -73,6 +73,9 @@ class AnimalDataModule(pl.LightningDataModule):
         return create_dataloader(self.data_dir, split="test", batch_size=self.batch_size, shuffle=False)
 
 def main():
+    # Create required directories if they don't exist
+    os.makedirs('checkpoints', exist_ok=True)
+    os.makedirs('logs', exist_ok=True)
     
     model = LitResNet()
     data_module = AnimalDataModule()
