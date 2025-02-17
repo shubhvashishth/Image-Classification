@@ -188,8 +188,9 @@ To test our model’s performance, we downloaded a random sample image from the 
 
 ## Challenges and Future Work
 **Challanges**
-- The original ResNet18 is designed for RGB images (3 channels), but our dataset consists of grayscale images (1 channel).
-- Using the default model would result in a shape mismatch error.
+- Got lost a little bit since model weights were loaded to MPS (Apple Silicon GPU) by default, while input tensors stayed on CPU during inference.
+- TensorBoard logs became cluttered during initial experiments with multiple runs.
+- Initially forgot to implement `test_step()` in LightningModule, causing test evaluation to fail.
 
 **Future Work**
 
