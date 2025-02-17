@@ -1,6 +1,9 @@
 """
-author : @shubhamvashishth
+Author: @shubhamvashishth
 
+This module provides a data preprocessing pipeline for the cat vs. dog image classification task.
+It leverages PyTorch's torchvision.transforms to prepare the images by resizing, converting to grayscale,
+normalizing, and optionally augmenting the data for improved generalization.
 """
 import os
 from torchvision import datasets, transforms

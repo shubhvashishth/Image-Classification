@@ -1,15 +1,19 @@
 """
-author : @shubhamvashishth
+Author: @shubhamvashishth
 
+This script performs inference using the trained ResNet model for binary classification (cats vs. dogs).
+It accepts an image file and a model checkpoint as inputs, processes the image through the same preprocessing
+pipeline used during training, and outputs the predicted class along with its confidence.
 """
+
 import torch
 from PIL import Image
 import pytorch_lightning as pl
-from train import LitResNet  # Import the Lightning wrapper
+from train import LitResNet  
 from preprocess import get_transforms
 
 def predict(image_path: str, checkpoint_path: str) -> str:
-    # Load model and move to appropriate device
+    
     model = LitResNet.load_from_checkpoint(checkpoint_path)
     model.eval() 
     device = model.device  
@@ -19,12 +23,12 @@ def predict(image_path: str, checkpoint_path: str) -> str:
     image = Image.open(image_path).convert('RGB')
     image_tensor = transform(image).unsqueeze(0).to(device) 
 
-    # Predict
+    # Predicting
     with torch.no_grad():
         output = model(image_tensor)
         prob = torch.softmax(output, dim=1)
     
-    # Get results
+    
     class_idx = torch.argmax(prob).item()
     confidence = prob[0][class_idx].item()
     return f"Prediction: {'Dog' if class_idx == 1 else 'Cat'} (Confidence: {confidence:.2%})"

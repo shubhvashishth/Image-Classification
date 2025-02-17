@@ -5,6 +5,13 @@ For Pre-activation ResNet, see 'preact_resnet.py'.
 Reference:
 [1] Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
     Deep Residual Learning for Image Recognition. arXiv:1512.03385
+
+This implementation has been modified for a binary classification task (cats vs. dogs).
+Key modifications include:
+- Changing the first convolution to accept grayscale images (1 channel instead of 3).
+- Adjusting the final fully-connected layer to output 2 classes.
+- Using Adaptive Average Pooling to handle variable spatial dimensions.
+
 '''
 import torch
 import torch.nn as nn

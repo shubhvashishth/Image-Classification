@@ -58,6 +58,13 @@ class LitResNet(pl.LightningModule):
         return Adam(self.parameters(), lr=1e-3)
 
 class AnimalDataModule(pl.LightningDataModule):
+
+    """
+        Initializes the data module:
+        - data_dir: Root directory containing 'train', 'val', and 'test' subdirectories.
+        - batch_size: Number of samples per batch.
+    """
+
     def __init__(self, data_dir="data", batch_size=32):
         super().__init__()
         self.data_dir = data_dir
@@ -73,7 +80,6 @@ class AnimalDataModule(pl.LightningDataModule):
         return create_dataloader(self.data_dir, split="test", batch_size=self.batch_size, shuffle=False)
 
 def main():
-    # Create required directories if they don't exist
     os.makedirs('checkpoints', exist_ok=True)
     os.makedirs('logs', exist_ok=True)
     
