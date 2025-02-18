@@ -78,6 +78,7 @@ venv\Scripts\activate
 ```bash
 pip install -r requirements.txt
 ```
+**Note : Notcied some errors while running on windows so,if running on windows downgrade numpy package to numpy==1.24.3, also do pip install tensorboard.**
 
 ### 5.  Prepare the Dataset
 - Download the dataset from the provided source.
