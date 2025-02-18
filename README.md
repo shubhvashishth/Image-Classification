@@ -190,14 +190,41 @@ To test our model’s performance, we downloaded a random sample image from the 
 
 ## Challenges and Future Work
 **Challanges**
-- Got lost a little bit since model weights were loaded to MPS (Apple Silicon GPU) by default, while input tensors stayed on CPU during inference.
-- TensorBoard logs became cluttered during initial experiments with multiple runs.
-- Initially forgot to implement `test_step()` in LightningModule, causing test evaluation to fail.
+- The original ResNet18 is designed for RGB images (3 channels), but our dataset consists of grayscale images (1 channel).
+- Using the default model would result in a shape mismatch error.
+- During evaluation, it was observed that our model consistently favors one class. In our binary classification setup (cats vs. dogs), nearly every image is classified as the same class regardless of the actual content.
+
+  - **Data Imbalance:**  
+  The training dataset may contain an unequal number of samples for each class, leading the model to favor the majority class.
+  
+  - **Training Issues:**  
+  Insufficient training or suboptimal convergence can cause the model to settle into a local minimum where it predicts only one class.
+  
+  - **Architectural or Hyperparameter Limitations:**  
+  The current model architecture or chosen hyperparameters might not be robust enough to capture the subtle differences between classes.
+
+
 
 **Future Work**
 
 - Data Augmentation Expansion
 - Learning Rate Scheduling : We could also use `ReduceLROnPlateau` .
+
+- **Dataset Rebalancing:**  
+  Ensure that the dataset is balanced. If necessary, augment the data for the underrepresented class to achieve a more equitable distribution.
+
+- **Class Weighting:**  
+  Incorporate class weights in the loss function (e.g., using `torch.nn.CrossEntropyLoss(weight=...)`) to penalize misclassification of the minority class.
+
+- **Enhanced Data Augmentation:**  
+  Implement more robust augmentation strategies during training to help the model learn invariant features across both classes.
+
+- **Hyperparameter Tuning:**  
+  Experiment with different learning rates, batch sizes, and regularization techniques to improve the model's convergence and reduce bias.
+
+- **Model Architecture Improvements:**  
+  Explore alternative or deeper architectures that may better capture the nuanced differences between the two classes.
+
 
 ## Final Thoughts 
 
