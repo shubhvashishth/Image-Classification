@@ -84,6 +84,7 @@ pip install -r requirements.txt
 - Download the dataset from the provided source.
 - Copy the dataset folder inside the main project directory.
 - Rename the dataset folder to data.
+- Delete the horse folders inside the train,test,val .
 
 ### 6.  Directory Structure
 ![alt text](assets/Directory_Structure.png)
